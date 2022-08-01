@@ -1,0 +1,36 @@
+{% load static %}
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{% static '/css/main.css' %}">
+    </head>
+    <body>
+        
+        {% if flag1 == 0 %}
+        <h2>page not found</h2>
+        {% else %}
+        <div>
+        <header id="header" class="alt">
+            <h1><a href="index.html">Solid State</a></h1>
+            <nav>
+                <a href="/main/{{uname}}">Home</a>
+                <a href="/library">library</a>
+                <a href="/laptop">laptop</a>
+                <a href="/logout">logout</a>
+            </nav>
+        </header>
+    </div>
+        <section id="banner">
+            
+        
+        
+        <h2>wlcome{{uname}} to library</h2>
+        <form method='POST' action="{% url 'searchbooks' %}">
+            {% csrf_token %}
+            <input type="text" placeholder="Search Books" name="search">
+            <button type="submit">Submit</button>
+        </form>
+        
+    </section>
+        {% endif %}
+    </body>
+</html>

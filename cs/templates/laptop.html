@@ -1,0 +1,26 @@
+{% load static %}
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{% static '/css/main.css' %}">
+    </head>
+    <body>
+        {% if flag1 == 0 %}
+        <h2>page not found</h2>
+        {% else %}
+        <section id="banner">
+        <header id="header" class="alt">
+            <h1><a href="index.html">Solid State</a></h1>
+            <nav>
+                <a href="/main/{{uname}}">Home</a>
+                <a href="/library">library</a>
+                <a href="/laptop">laptop</a>
+                <a href="/logout">logout</a>
+            </nav>
+        </header>
+    </section>
+    
+        <h2>wlcome{{uname}} to laptop</h2>
+       
+        {% endif %}
+    </body>
+</html>

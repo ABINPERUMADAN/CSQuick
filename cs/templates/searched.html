@@ -1,0 +1,50 @@
+{% load static%}
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{% static '/css/main.css' %}">
+    </head>
+<body>
+
+    {% if flag1 == '1' or flag1 == '2' %}
+    <div>
+        <header id="header" class="alt">
+            <h1><a href="index.html">Solid State</a></h1>
+            <nav>
+                <a href="/main/{{uname}}">Home</a>
+                <a href="/library/{{uname}}">library</a>
+                <a href="/laptop/{{uname}}">laptop</a>
+                <a href="/logout">logout</a>
+            </nav>
+        </header>
+    </div>
+    <section id="banner">
+<div>
+
+    <form method='POST' action="">
+        {% csrf_token %}
+        <input type="text" placeholder="Search Books" name="search">
+        <button type="submit">Submit</button>
+    </form>
+</div>
+        {% if searched %}
+            {% for i in name %}
+            {{i.bookname}}<br>
+            <img src="{{i.photo.url}}"><br>
+            {% if i.status == 3 %}
+
+    <a href="/book_status/{{i.bookname}}"><button style="color: blue;" type="submit">reserve</button></a><br>
+            {% else %}
+<button type="submit" style="color: white;">reserve</button><br>
+            
+            {% endif %}
+            {% endfor %}
+</section>
+        {% else %}
+            search something...
+        {% endif %}
+{% else %}
+
+<h2>page not found</h2> 
+{% endif %}
+</body>
+</html>
