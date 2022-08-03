@@ -40,25 +40,20 @@ def main(request,uname1):
         totuser=student.objects.all()
         totlap=laptop.objects.all()
         events_list=events.objects.all()
-        j=0
-        k=0
-        for i in totlap:
-            k+=1
-        for i in totuser:
-            if laptop.objects.filter(user=i.username):
-                j+=1
-        alap = k-j  
+        
+        
+        alap =laptop.objects.filter(status=0).count()
         if flag1=='1':
-            userbooks=books.objects.filter(user=uname1).count
-            book=books.objects.filter(user=uname1)
+            userbooks=books.objects.filter(student_user=uname1).count
+            book=books.objects.filter(student_user=uname1)
 
             a={'flag1':flag1,'uname':uname1,'totbooks':totbooks,'userbooks':userbooks,'book':book,
                     'totlaptop':totlaptop,'alap':alap,'logout':logout,'events':events_list}
             return render(request,'index.html',a)
         
         elif flag1=='2':
-            userbooks=books.objects.filter(user=uname1).count
-            book=books.objects.filter(user=uname1)
+            userbooks=books.objects.filter(staff_user=uname1).count
+            book=books.objects.filter(staff_user=uname1)
             a={'flag1':flag1,'uname':uname1,'totbooks':totbooks,'userbooks':userbooks,'book':book,
                     'totlaptop':totlaptop,'alap':alap,'logout':logout,'events':events_list}
             return render(request,'index.html',a)
@@ -78,7 +73,16 @@ def library1(request):
     return render(request,'library.html',a)
 
 def laptop1(request):
-    a={'uname':uname1,'flag1':flag1}
+    if flag1=='1':       
+        ulap=laptop.objects.filter(student_user=uname1).count()
+        lap=laptop.objects.filter(student_user=uname1).first()
+    else:
+        ulap=laptop.objects.filter(staff_user=uname1).count()
+        lap=laptop.objects.filter(staff_user=uname1).first()
+
+    alap =laptop.objects.filter(status=0).count()
+    
+    a={'uname':uname1,'flag1':flag1,'alap':alap,'ulap':ulap,'lap':lap}
     return render(request,'laptop.html',a)
 
 def searchbooks(request):
@@ -95,9 +99,26 @@ def searchbooks(request):
 
 def book_status(request,bookname):
     book=books.objects.get(bookname=bookname)
-    user=student.objects.get(username=uname1)
+    if flag1=='1':
+        user=student.objects.get(username=uname1)
+        book.student_user=user
+    else:
+        user=staff.objects.get(username=uname1)
+        book.staff_user=user
     book.status=2
-    book.user=user
+    
     book.save()
     return redirect('/searchbooks')
 
+def laptop_status(request):
+    lap=laptop.objects.filter(status=0).first()
+    if flag1=='1':
+        user=student.objects.get(username=uname1)
+        lap.student_user=user
+    else:
+        user=staff.objects.get(username=uname1)
+        lap.staff_user=user
+    lap.status=3
+    
+    lap.save()
+    return redirect('/laptop')

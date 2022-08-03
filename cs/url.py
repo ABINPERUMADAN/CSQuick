@@ -12,5 +12,6 @@ urlpatterns=[
     path('laptop/',views.laptop1),
     path('searchbooks/',views.searchbooks,name='searchbooks'),
     path('book_status/<str:bookname>',views.book_status),
+    path('laptop_status/',views.laptop_status),
    
 ]

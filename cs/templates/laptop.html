@@ -20,6 +20,15 @@
     </section>
     
         <h2>wlcome{{uname}} to laptop</h2>
+        <p>Avilable laptops are:{{alap}}</p>
+        
+        {% if alap > 0 and ulap == 0 %}
+        
+        <a href="/laptop_status"><button style="color: blue;" type="submit">reserve</button></a><br>
+            {% else %}
+            <p>Renew date:{{lap.renew_date}}</p>
+<!-- <button type="submit" style="color: white;">reserve</button><br> -->
+        {% endif %}
        
         {% endif %}
     </body>

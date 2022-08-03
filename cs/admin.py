@@ -10,16 +10,16 @@ class studentadmin(admin.ModelAdmin):
 admin.site.register(models.student,studentadmin)
 
 class booksadmin(admin.ModelAdmin):
-    list_display=('bookid','bookname','bookauthor','issuedate','renewdate','user','status', )
-    search_fields=('bookid','bookname','user__username')
-    raw_id_fields = ("user",)
+    list_display=('bookid','bookname','bookauthor','issuedate','renewdate','student_user','staff_user','status', )
+    search_fields=('bookid','bookname','student_user__username','staff_user__username')
+    raw_id_fields = ("staff_user","student_user")
 
 admin.site.register(models.books,booksadmin)
 
 class laptopadmin(admin.ModelAdmin):
-    list_display=('lapid','user','datel','status', )
-    search_fields=('lapid','user__username',)
-    raw_id_fields = ('user',)
+    list_display=('lapid','student_user','staff_user','renew_date','status', )
+    search_fields=('lapid','student_user__username','staff_user__username')
+    raw_id_fields = ('student_user','staff_user')
 
 admin.site.register(models.laptop,laptopadmin)
 
