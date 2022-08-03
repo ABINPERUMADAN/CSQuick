@@ -1,5 +1,4 @@
 from secrets import choice
-from cairo import Status
 from django.db import models
 from secretstorage import search_items
 
