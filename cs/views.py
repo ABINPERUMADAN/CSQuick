@@ -24,12 +24,14 @@ def signin(request):
         if student.objects.filter(username=uname1).filter(password=pass1):
             flag1='1'
             
-            return redirect('main',uname1)
+            # return redirect('main',uname1)
+            return redirect('http://127.0.0.1:5500/index.html')
         
         elif staff.objects.filter(username=uname1).filter(password=pass1):
             flag1='2'
             flag=1
-            return redirect('main',uname1)
+            # return redirect('main',uname1)
+            return redirect('http://127.0.0.1:5500/index.html')
     return render(request,'signin.html')
 
 def main(request,uname1):
