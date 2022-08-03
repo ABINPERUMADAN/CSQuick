@@ -1,6 +1,6 @@
 
 
-from os import uname
+import os
 from django.contrib import messages
 from django.shortcuts import render,redirect
 from .models import *
